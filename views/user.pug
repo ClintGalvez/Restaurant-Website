@@ -1,0 +1,50 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
+        title #{user.username}'s Profile
+        include ./partials/bootstrap-style
+        link(rel="stylesheet", href="/css/user.css")
+    body
+        include ./partials/header
+        
+        .container.d-flex.justify-content-center
+            h1 #{user.username}'s Profile
+        br
+        if (session.userId == user._id)
+            .container.d-flex.justify-content-center
+                form(action=`/users/${session.userId}`, method='post')
+                    p Private Mode:
+                    if (user.privacy == true)
+                        input#on(type='radio', name='privacy', value='true', checked)
+                        label(for='on') On
+                        br
+                        input#off(type='radio', name='privacy', value='false')
+                        label(for='off') Off
+                        br
+                        br
+                        input(type='submit', value='Submit')
+                    else 
+                        input#on(type='radio', name='privacy', value='true')
+                        label(for='on') On
+                        br
+                        input#off(type='radio', name='privacy', value='false', checked)
+                        label(for='off') Off
+                        br
+                        br
+                        input(type='submit', value='Submit')
+            br
+            .container.d-flex.justify-content-center
+                a(href='/logout', method='get') Logout
+            br
+        br
+        .container.d-flex.justify-content-center
+            h4 Order History:
+        br
+        .container.d-flex.justify-content-center
+            if user.orders != undefined
+                ul
+                    each order in user.orders
+                        li
+                            a(href=`/orders/${order._id}`) #{order._id}

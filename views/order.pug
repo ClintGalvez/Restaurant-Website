@@ -1,0 +1,30 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
+        title Order ##{order._id}
+        include ./partials/bootstrap-style
+        link(rel="stylesheet", href="/css/order.css")
+    body
+        include ./partials/header
+        
+        .container.d-flex.justify-content-center
+            h1 Order ##{order._id}
+        .container.d-flex.justify-content-center
+            p Restaurant Name: #{order.restaurantName}
+        .container.d-flex.justify-content-center
+            p Order Contents:
+        .container.d-flex.justify-content-center
+            ul
+                each item in order.order
+                    li
+                        a #{item.name} x #{item.quantity}
+        .container.d-flex.justify-content-center
+            p Subtotal: $#{order.subtotal}
+        .container.d-flex.justify-content-center
+            p Tax: $#{order.tax}
+        .container.d-flex.justify-content-center
+            p Delivery: $#{order.fee}
+        .container.d-flex.justify-content-center
+            p Total: $#{order.total}
